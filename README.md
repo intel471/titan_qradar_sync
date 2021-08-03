@@ -1,19 +1,19 @@
 # Intel 471 Integration for QRadar
 
-##Overview
+## Overview
 titan_qradar_sync provides a mechanism for synchronising data from Titan to a QRadar instance.  The following types of data are currently included in the synchronisation process:
 - Malware indicators.
 
 Synchronisation is achieved by periodically pulling data from the Titan API and submitting this to the API of the target QRadar instance.  Data may be pushed into Reference Sets and/or Reference Tables.
 
-##Requirements
+## Requirements
 - A suitable server to host the titan_qradar_sync.py integration script. This server should have access to both the Titan API (https://api.intel471.com and the URL of the API for your QRadar instance).
 - Python 3.8+ installed on the above server.
 - Your Titan credentials (username and API key).
 - The URL of the API for your QRadar instance.
 - Your QRadar credentials (username, password and auth key).
 
-##Configuration
+## Configuration
 The /config/titan_qradar_sync.ini contains all of the following configuration settings:
 
 | Setting                                                 | Description                                                                                                |
@@ -59,7 +59,7 @@ The /config/titan_qradar_sync.ini contains all of the following configuration se
 
 Most of the config points described above are pre-populated in the sample provided.  The main items to add are the Titan credentials, the QRadar credentials and the QRadar API URL.  The values for the other config points may of course be changed to match your own requirements.
 
-##Installation
+## Installation
 - Copy the entire contents (files and directories) of the shared directory containing the integration to an appropriate directory on the server that will host the integration script (eg /opt/intel471/titan_qradar_sync/).
 - Navigate to the directory above eg:
   ```
@@ -79,17 +79,17 @@ Most of the config points described above are pre-populated in the sample provid
   ```
 - Edit the /config/titan_qradar_sync.ini file in line with your requirements (eg Titan credentials, QRadar API URL and QRadar credentials).
 
-##Invocation
+## Invocation
 The integration script may be run manually using:
 ```
 python3 titan_qradar_sync.py
 ```
 However, it is recommended that the script is scheduled to run periodically (eg every 30 minutes) using at appropriate scheduling tool such as cron.  Each run will acquire any new malware indicator activity from the Titan API and push the data into the relevant QRadar Reference Sets and Reference Tables.
 
-##Logging
+## Logging
 Log files are written to the directory specified by the [files][log_directory] config point, using a prefix specified by the [files][log_prexix] config point.
 
-##Cursors
+## Cursors
 The integration script acquires data from the appropriate Titan API endpoints using a stream/cursor mechanism.  This is to ensure that complete and accurate information is obtained for the target high volume and fast changing data.
 
 Request/response cursors are used as markers for positions in the stream.  These cursors are persisted in the files specified by the [files][cursor_file_malware_indicator_sets] and [files][cursor_file_malware_indicator_tables] config points.
